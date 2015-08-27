@@ -51,19 +51,19 @@ angularApp.run(function($transform) {
 // in order to avoid unwanted routing.
 // 
 angularApp.config(function($routeProvider) {
-  $routeProvider.when('/',              {templateUrl: 'home.html', reloadOnSearch: false});
-  $routeProvider.when('/scroll',        {templateUrl: 'scroll.html', reloadOnSearch: false}); 
-  $routeProvider.when('/toggle',        {templateUrl: 'toggle.html', reloadOnSearch: false}); 
-  $routeProvider.when('/tabs',          {templateUrl: 'tabs.html', reloadOnSearch: false}); 
-  $routeProvider.when('/accordion',     {templateUrl: 'accordion.html', reloadOnSearch: false}); 
-  $routeProvider.when('/overlay',       {templateUrl: 'overlay.html', reloadOnSearch: false}); 
-  $routeProvider.when('/forms',         {templateUrl: 'forms.html', reloadOnSearch: false});
-  $routeProvider.when('/dropdown',      {templateUrl: 'dropdown.html', reloadOnSearch: false});
-  $routeProvider.when('/touch',         {templateUrl: 'touch.html', reloadOnSearch: false});
-  $routeProvider.when('/swipe',         {templateUrl: 'swipe.html', reloadOnSearch: false});
-  $routeProvider.when('/drag',          {templateUrl: 'drag.html', reloadOnSearch: false});
-  $routeProvider.when('/drag2',         {templateUrl: 'drag2.html', reloadOnSearch: false});
-  $routeProvider.when('/carousel',      {templateUrl: 'carousel.html', reloadOnSearch: false});
+  $routeProvider.when('/',              {templateUrl: 'views/home.html', reloadOnSearch: false});
+  $routeProvider.when('/scroll',        {templateUrl: 'views/scroll.html', reloadOnSearch: false}); 
+  $routeProvider.when('/toggle',        {templateUrl: 'views/toggle.html', reloadOnSearch: false}); 
+  $routeProvider.when('/tabs',          {templateUrl: 'views/tabs.html', reloadOnSearch: false}); 
+  $routeProvider.when('/accordion',     {templateUrl: 'views/accordion.html', reloadOnSearch: false}); 
+  $routeProvider.when('/overlay',       {templateUrl: 'views/overlay.html', reloadOnSearch: false}); 
+  $routeProvider.when('/forms',         {templateUrl: 'views/forms.html', reloadOnSearch: false});
+  $routeProvider.when('/dropdown',      {templateUrl: 'views/dropdown.html', reloadOnSearch: false});
+  $routeProvider.when('/touch',         {templateUrl: 'views/touch.html', reloadOnSearch: false});
+  $routeProvider.when('/swipe',         {templateUrl: 'views/swipe.html', reloadOnSearch: false});
+  $routeProvider.when('/drag',          {templateUrl: 'views/drag.html', reloadOnSearch: false});
+  $routeProvider.when('/drag2',         {templateUrl: 'views/drag2.html', reloadOnSearch: false});
+  $routeProvider.when('/carousel',      {templateUrl: 'views/carousel.html', reloadOnSearch: false});
 });
 
 // 
