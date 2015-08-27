@@ -1,8 +1,34 @@
+//Phonegap app
+var app = {
+    // Application Constructor
+    initialize: function() {
+        this.bindEvents();
+    },
+    // Bind Event Listeners
+    //
+    // Bind any events that are required on startup. Common events are:
+    // 'load', 'deviceready', 'offline', and 'online'.
+    bindEvents: function() {
+        document.addEventListener('deviceready', this.onDeviceReady, false);
+    },
+    // deviceready Event Handler
+    //
+    // The scope of 'this' is the event. In order to call the 'receivedEvent'
+    // function, we must explicity call 'app.receivedEvent(...);'
+    onDeviceReady: function() {
+        app.receivedEvent('deviceready');
+    },
+    // Update DOM on a Received Event
+    receivedEvent: function(id) {
+        console.log('Received Event: ' + id);
+    }
+};
+
 // 
 // Here is how to define your module 
 // has dependent on mobile-angular-ui
 // 
-var app = angular.module('MobileAngularUiExamples', [
+var angularApp = angular.module('MobileAngularUiExamples', [
   'ngRoute',
   'mobile-angular-ui',
   
@@ -15,7 +41,7 @@ var app = angular.module('MobileAngularUiExamples', [
   'mobile-angular-ui.gestures'
 ]);
 
-app.run(function($transform) {
+angularApp.run(function($transform) {
   window.$transform = $transform;
 });
 
@@ -24,7 +50,7 @@ app.run(function($transform) {
 // feature (i.e. close sidebar on backbutton) you should setup 'reloadOnSearch: false' 
 // in order to avoid unwanted routing.
 // 
-app.config(function($routeProvider) {
+angularApp.config(function($routeProvider) {
   $routeProvider.when('/',              {templateUrl: 'home.html', reloadOnSearch: false});
   $routeProvider.when('/scroll',        {templateUrl: 'scroll.html', reloadOnSearch: false}); 
   $routeProvider.when('/toggle',        {templateUrl: 'toggle.html', reloadOnSearch: false}); 
@@ -44,7 +70,7 @@ app.config(function($routeProvider) {
 // `$touch example`
 // 
 
-app.directive('toucharea', ['$touch', function($touch){
+angularApp.directive('toucharea', ['$touch', function($touch){
   // Runs during compile
   return {
     restrict: 'C',
@@ -78,7 +104,7 @@ app.directive('toucharea', ['$touch', function($touch){
 //
 // `$drag` example: drag to dismiss
 //
-app.directive('dragToDismiss', function($drag, $parse, $timeout){
+angularApp.directive('dragToDismiss', function($drag, $parse, $timeout){
   return {
     restrict: 'A',
     compile: function(elem, attrs) {
@@ -122,7 +148,7 @@ app.directive('dragToDismiss', function($drag, $parse, $timeout){
 // Another `$drag` usage example: this is how you could create 
 // a touch enabled "deck of cards" carousel. See `carousel.html` for markup.
 //
-app.directive('carousel', function(){
+angularApp.directive('carousel', function(){
   return {
     restrict: 'C',
     scope: {},
@@ -149,7 +175,7 @@ app.directive('carousel', function(){
   };
 });
 
-app.directive('carouselItem', function($drag) {
+angularApp.directive('carouselItem', function($drag) {
   return {
     restrict: 'C',
     require: '^carousel',
@@ -224,7 +250,7 @@ app.directive('carouselItem', function($drag) {
   };
 });
 
-app.directive('dragMe', ['$drag', function($drag){
+angularApp.directive('dragMe', ['$drag', function($drag){
   return {
     controller: function($scope, $element) {
       $drag.bind($element, 
@@ -251,7 +277,50 @@ app.directive('dragMe', ['$drag', function($drag){
 // For this trivial demo we have just a unique MainController 
 // for everything
 //
-app.controller('MainController', function($rootScope, $scope){
+angularApp.controller('MainController', function($rootScope, $scope){
+
+/*
+phonegap
+*/
+
+// Fetch Device info from Device Plugin
+	$scope.alertDeviceInfo = function() {
+		var deviceInfo = ('Device Platform: ' + device.platform + '\n'
+				+ 'Device Version: ' + device.version + '\n' + 'Device Model: '
+				+ device.model + '\n' + 'Device UUID: ' + device.uuid + '\n');
+
+		navigator.notification.alert(deviceInfo);
+	};
+
+	// Fetch location info from GeoLocation Plugin
+	$scope.alertGeoLocation = function() {
+		var onSuccess = function(position) {
+			navigator.notification.alert('Latitude: '
+					+ position.coords.latitude + '\n' + 'Longitude: '
+					+ position.coords.longitude + '\n' + 'Altitude: '
+					+ position.coords.altitude + '\n' + 'Accuracy: '
+					+ position.coords.accuracy + '\n' + 'Altitude Accuracy: '
+					+ position.coords.altitudeAccuracy + '\n' + 'Heading: '
+					+ position.coords.heading + '\n' + 'Timestamp: '
+					+ position.timestamp + '\n');
+		};
+		navigator.geolocation.getCurrentPosition(onSuccess);
+
+	};
+
+	// Makes a beep sound
+	$scope.beepNotify = function() {
+		navigator.notification.beep(1);
+	};
+
+	// Vibrates the phone
+	$scope.vibrateNotify = function() {
+		navigator.notification.vibrate(1000);
+	};
+	
+/*
+# # # # # # # # # # # # # #
+*/	
 
   $scope.swiped = function(direction) {
     alert('Swiped ' + direction);
@@ -285,7 +354,7 @@ app.controller('MainController', function($rootScope, $scope){
 
   $scope.bottomReached = function() {
     /* global alert: false; */
-    alert('Congrats you scrolled to the end of the list!');
+    //alert('Congrats you scrolled to the end of the list!');
   };
 
   // 
@@ -295,28 +364,8 @@ app.controller('MainController', function($rootScope, $scope){
     { name: 'Carlos  Flowers', online: true },
     { name: 'Byron Taylor', online: true },
     { name: 'Jana  Terry', online: true },
-    { name: 'Darryl  Stone', online: true },
-    { name: 'Fannie  Carlson', online: true },
-    { name: 'Holly Nguyen', online: true },
-    { name: 'Bill  Chavez', online: true },
-    { name: 'Veronica  Maxwell', online: true },
-    { name: 'Jessica Webster', online: true },
-    { name: 'Jackie  Barton', online: true },
-    { name: 'Crystal Drake', online: false },
-    { name: 'Milton  Dean', online: false },
-    { name: 'Joann Johnston', online: false },
-    { name: 'Cora  Vaughn', online: false },
-    { name: 'Nina  Briggs', online: false },
-    { name: 'Casey Turner', online: false },
-    { name: 'Jimmie  Wilson', online: false },
-    { name: 'Nathaniel Steele', online: false },
-    { name: 'Aubrey  Cole', online: false },
-    { name: 'Donnie  Summers', online: false },
-    { name: 'Kate  Myers', online: false },
-    { name: 'Priscilla Hawkins', online: false },
-    { name: 'Joe Barker', online: false },
-    { name: 'Lee Norman', online: false },
-    { name: 'Ebony Rice', online: false }
+    { name: 'Darryl  Stone', online: true }
+    
   ];
 
   //
